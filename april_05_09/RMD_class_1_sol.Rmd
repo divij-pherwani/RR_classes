@@ -1,0 +1,60 @@
+---
+title: "Suits TV Show"
+author: 'Divij Pherwani'
+output: html_document
+---
+
+### A brief description of the show (use _italics_ for names)
+
+*Suits* is an American legal drama television series created and written by Aaron Korsh. The series premiered on USA Network on June 23, 2011 and is produced by Universal Cable Productions. The series concluded on September 25, 2019 and is now available on Prime Video, Peacock and Netflix. *Suits* is set at a fictional New York City law firm and follows talented college dropout Mike Ross (Patrick J. Adams), who starts working as a law associate for Harvey Specter (Gabriel Macht) despite never having attended law school. The show focuses on Harvey and Mike closing cases, while maintaining Mike's secret. The show also features the characters Louis Litt (Rick Hoffman), Rachel Zane (Meghan Markle), Donna Paulsen (Sarah Rafferty), and Jessica Pearson (Gina Torres). On January 30, 2018, the series was renewed for an eighth season without Adams and Markle, and Katherine Heigl joined the cast as Samantha Wheeler. Recurring characters Alex Williams (Dulé Hill) and Katrina Bennett (Amanda Schull) were promoted to series regulars. The show was renewed for a 10-episode ninth and final season on January 23, 2019, which premiered on July 17, 2019. Throughout its run, *Suits* has been nominated for several awards, with Torres and Adams receiving individual praise. Besides two nominations recognizing her role as a supporting actress, Torres was awarded Outstanding Performance in a Television Series at the 2013 NHMC Impact Awards. Adams was nominated for Outstanding Performance by a Male Actor in a Drama Series at the 2012 Screen Actors Guild Awards, and the show itself has been nominated for two People's Choice Awards. The show's success spawned a short-lived spin-off, Pearson, centered on Jessica Pearson's entry into Chicago politics, which premiered alongside the final season of *Suits* on July 17, 2019.
+
+###  A photo with the logo or a shot from the show itself
+
+![](RMD_class_1_files/figure-html/Title_card_for_the_US_TV_show_Suits.png)
+
+### A summary of some basic statistics
+
+```{r,  echo=FALSE}
+views = c(4.28, 3.60, 2.73, 2.26, 2.01, 1.60, 1.30, 1.02, 'TBD')
+ratings = c(1.4, 1.2, 0.9, 0.7, 0.6, 0.4, 0.3, 0.2, 'TBD')
+seasons = c(1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+tab <- data.frame(seasons, views, ratings)
+
+library(knitr)
+
+kable(tab, format = "pipe", col.names = (c('Season', 'Views in millions', 'Ratings 18-49')))
+```
+
+### A graph of the viewership over time
+
+```{r, echo= FALSE}
+plot(x = seasons[1:8], y = views[1:8], type="b" , xlab = "Seasons", ylab = "Views in Millions")
+```
+
+
+### A graph of the episode-to-episode (or season-to-season) changes in viewership
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+temp <- tab[1:8,]
+temp$views <- as.numeric(temp$views)
+temp$ratings <- as.numeric(temp$ratings)
+change_report <- temp %>%
+  mutate(
+    SoS = (views - lag(views)) / lag(views)
+  )
+change_report <- change_report[,c(1,4)]
+change_report[1,2] <- 0
+plot(change_report, type="b", xlab = "Seasons", ylab = "Change Season to season")
+```
+
+
+### A short description of the observed changes that includes inline references to numbers (e.g. the viewership decreased by `insert_calculated_number` between seasons 3 and 5).
+
+```{r, echo=FALSE}
+delf <- change_report$SoS[5] - change_report$SoS[3]
+cf <- temp$views[5] - temp$views[3]
+```
+
+The show has a declining number of views every season compared to the season 1. The change in viewership from season 3 to season 5 is`r cf` millions and delta change is `r delf` millions. I personally stopped watching after exit of Patrick Adams and Meghan Markle. 
