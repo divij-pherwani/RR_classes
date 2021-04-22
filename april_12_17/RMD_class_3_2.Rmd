@@ -1,13 +1,11 @@
 ---
-title: "(R)Markdown #3"
+title: '(R)Markdown #3'
 author: "Wojciech Hardy; Michał Paliński"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
-  pdf_document:
-    citation_package: natbib
-    toc: true
-    number_sections: true
-    toc_depth: 3
+output:
+  slidy_presentation: default
+  powerpoint_presentation: default
+  ioslides_presentation: default
 bibliography: bibliography.bib
 documentclass: article
 fontsize: 11pt
